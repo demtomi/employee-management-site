@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors');
 
+const employeeRouter = require("./routes/employees");
+
 const { MONGO_URL, PORT = 8080 } = process.env;
 
 if (!MONGO_URL) {
@@ -14,7 +16,7 @@ const app = express();
 app.use(cors({ origin: "http://localhost:3000" }));
 
 app.use(express.json());
-
+app.use("/api/employees", employeeRouter);
 
 const main = async () => {
     await mongoose.connect(MONGO_URL);
