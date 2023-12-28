@@ -20,4 +20,21 @@ router.get("/:id", async (req, res) => {
     };
 });
 
+//CREATE NEW EMPLOYEE
+router.post("/", async (req, res, next) => {
+    const employee = req.body;
+    try {
+        const saved = await EmployeeModel.create(employee);
+
+        if (!saved) {
+            return res.status(500).json({ message: "Saved not found" })
+        };
+
+        return res.status(201).json(saved);
+    } catch (error) {
+
+        return res.status(500).json({ message: "Server error", error });
+    };
+});
+
 module.exports = router;
