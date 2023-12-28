@@ -54,4 +54,27 @@ router.patch("/:id", async (req, res, next) => {
     };
 });
 
+//DELETE AN EMPLOYEE BY ID
+router.delete("/:id", async (req, res, next) => {
+    try {
+        const employee = await EmployeeModel.findById(req.params.id);
+        if (!employee || employee === null) {
+            res.status(204).json({ message: "Employee not found" });
+        };
+
+        await employee.delete();
+
+        const result = await EmployeeModel.findById(req.params.id)
+        if (!result) {
+            return res.status(200).json({ message: "delete successful" });
+        } else {
+            return res.json({ message: "delete failed" });
+        };
+
+    } catch (error) {
+
+        return res.status(500).json({ message: "Server error", error });
+    };
+});
+
 module.exports = router;
