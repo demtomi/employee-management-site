@@ -1,0 +1,37 @@
+.EmployeeTable {
+  padding: 0.5rem;
+}
+
+.first-arrow {
+  position: absolute;
+  left: 43px;
+  top: ;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.first-arrow.up {
+  transform: translateY(-50%) rotateX(180deg);
+}
+
+.middle-arrow {
+  position: absolute;
+  left: 52px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.middle-arrow.up {
+  transform: translateY(-50%) rotateX(180deg);
+}
+
+.last-arrow {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.last-arrow.up {
+  transform: translateY(-50%) rotateX(180deg);
+}

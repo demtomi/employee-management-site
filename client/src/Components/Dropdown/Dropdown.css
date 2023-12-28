@@ -1,0 +1,65 @@
+button {
+  position: relative;
+  padding: 0.2rem 1rem;
+  margin: 0.1rem;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase;
+  outline: rgb(99, 151, 254);
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.filter-button {
+  position: relative;
+  padding: 0.2rem 1rem;
+  margin: 0.1rem;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase;
+  outline: rgb(99, 151, 254);
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+  :active {
+    background-color: rgb(86, 94, 252);
+  }
+}
+
+.arrow {
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow.up {
+  transform: translateY(-50%) rotateX(180deg);
+}
+
+button:hover {
+  border-color: rgb(99, 151, 254);
+}
+
+.filter-list {
+  position: absolute;
+  top: 300;
+  left: 200;
+  z-index: 1;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+}
+
+.position-filters,
+.level-filters{
+  border-color: rgb(99, 151, 254);
+}
+
+.position-filters:hover,
+.level-filters:hover {
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: rgb(176, 186, 252);
+}
