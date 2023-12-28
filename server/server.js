@@ -14,7 +14,7 @@ if (!MONGO_URL) {
 };
 
 const app = express();
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://localhost:8080" }));
 
 app.use(express.json());
 app.use("/api/employees", employeeRouter);
