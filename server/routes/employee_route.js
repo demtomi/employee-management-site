@@ -37,4 +37,21 @@ router.post("/", async (req, res, next) => {
     };
 });
 
+//UPDATE AN EMPLOYEE
+router.patch("/:id", async (req, res, next) => {
+    try {
+
+        const employee = await EmployeeModel.findOneAndUpdate(
+            { _id: req.params.id },
+            { $push: { ...req.body } },
+            { new: true }
+        );
+
+        return res.status(200).json(employee);
+    } catch (error) {
+
+        return res.status(500).json({ message: "Server error", error });
+    };
+});
+
 module.exports = router;
