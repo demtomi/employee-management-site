@@ -14,11 +14,11 @@ const EmployeeTable = ({ employees }) => {
             </thead>
             <tbody>
                 {employees.map((employee) => (
-                    <tr key={employee.id}>
-                        <td>{employee.full_name}</td>
-                        <td>{employee.age}</td>
-                        <td>{employee.main_office}</td>
-                        <td>{employee.position}</td>
+                    <tr >
+                        <td key={employee.id}>{employee.full_name}</td>
+                        <td key={employee.id}>{employee.age}</td>
+                        <td key={employee.id}>{employee.main_office}</td>
+                        <td key={employee.id}>{employee.position}</td>
                     </tr>
                 ))}
             </tbody>
