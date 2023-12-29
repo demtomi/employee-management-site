@@ -1,23 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const EmployeeModel = require("../db/employee.model");
+const MongoClient = require('mongodb').MongoClient
 
-//GET ONE EMPLOYEE BY ID
-router.get("/:id", async (req, res) => {
-    const employeeID = req.params.id;
+//GET EMPLOYEE
+router.get("/", async (req, res) => {
+    const response = res;
+    console.log(req);
 
-    try {
-        const employee = await EmployeeModel.findById(employeeID);
+    MongoClient.connect('mongodb://admin:pass@localhost:27017', function (err, client) {
+        if (err) throw err;
 
-        if (!employee) {
-            return res.status(404).json({ message: "Employee not found" });
-        };
+        const db = client.db('employees');
+        const query = { userid: "658eb46c6498aa9ed8558f1f" };
+        db.collection('users').findOne(query, function (err, result) {
+            if (err) throw err;
 
-        return res.status(200).json(employee);
-    } catch (error) {
-
-        return res.status(500).json({ message: "Server error" });
-    };
+            client.close();
+            response.send(result);
+        })
+    });
 });
 
 //CREATE NEW EMPLOYEE
