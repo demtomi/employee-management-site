@@ -26,7 +26,25 @@ app.get('/employees', async (req, res) => {
         console.error('Error fetching employees:', error);
         res.status(500).send('Internal Server Error');
     } finally {
-        // Close the connection
+        client.close();
+    }
+});
+
+//GET EQUIPMENT
+app.get('/equipment', async (req, res) => {
+    try {
+        await client.connect();
+
+        const database = client.db('equipment');
+        const collection = database.collection('equipments');
+
+        const equipment = await collection.find({}).toArray();
+
+        res.json(equipment);
+    } catch (error) {
+        console.error('Error fetching equipment:', error);
+        res.status(500).send('Internal Server Error');
+    } finally {
         client.close();
     }
 });
