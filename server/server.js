@@ -1,54 +1,52 @@
+require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require('cors');
-const { MongoClient } = require('mongodb')
 
-const PORT = 5000;
+const EmployeeModel = require("./db/employee.model");
+const EquipmentModel = require("./db/equipment.model");
+
+const { MONGO_URL, PORT = 5000 } = process.env;
+
+if (!MONGO_URL) {
+    console.error("Missing MONGO_URL environment variable");
+    process.exit(1);
+}
 
 const app = express();
 app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 
-const uri = 'mongodb://admin:pass@localhost:27017';
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-//GET EMPLOYEE
-app.get('/employees', async (req, res) => {
+// GET REQUEST FOR EMPLOYEES
+app.get("/employees", async (req, res) => {
+    const employees = await EmployeeModel.find();
     try {
-        await client.connect();
-
-        const database = client.db('employees');
-        const collection = database.collection('employee');
-
-        const employees = await collection.find({}).toArray();
-
-        res.json(employees);
+        res.json(employees)
     } catch (error) {
-        console.error('Error fetching employees:', error);
-        res.status(500).send('Internal Server Error');
-    } finally {
-        client.close();
+        console.log(error);
     }
 });
 
-//GET EQUIPMENT
-app.get('/equipment', async (req, res) => {
+// GET REQUEST FOR EQUIPMENT
+app.get("/equipment", async (req, res) => {
+    const equipment = await EquipmentModel.find();
     try {
-        await client.connect();
-
-        const database = client.db('equipment');
-        const collection = database.collection('equipments');
-
-        const equipment = await collection.find({}).toArray();
-
-        res.json(equipment);
+        res.json(equipment)
     } catch (error) {
-        console.error('Error fetching equipment:', error);
-        res.status(500).send('Internal Server Error');
-    } finally {
-        client.close();
+        console.log(error);
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is listening on ${PORT}`);
+const main = async () => {
+    await mongoose.connect(MONGO_URL);
+    console.log("DB Connected")
+
+    app.listen(PORT, () => {
+        console.log(`Server is listening on ${PORT}`);
+    });
+};
+
+main().catch((err) => {
+    console.error(err);
+    process.exit(1);
 });
